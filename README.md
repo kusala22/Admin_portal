@@ -16,12 +16,12 @@
 3. **Development Requirement**
    - Both Frontend and Backend must run together.
    - The UI must remain exactly the same.
-   - ❌ Do NOT modify frontend design or components.
-   - ✅ Build the backend required for the existing UI functionality.
+   -  Do NOT modify frontend design or components.
+   - Build the backend required for the existing UI functionality.
 
 ---
 
-## 🏢 Project Overview
+##  Project Overview
 
 This project is part of the **CertifyMe Full Stack Intern Assessment**. The repository already contains a complete Admin UI. Your responsibility is to **build the backend and connect it with the existing frontend**.
 
@@ -47,11 +47,11 @@ This project is part of the **CertifyMe Full Stack Intern Assessment**. The repo
 
 ---
 
-## 🧩 Features & User Stories
+##  Features & User Stories
 
 ---
 
-### ✅ Task 1 — Authentication *(Day 1)*
+###  Task 1 — Authentication *(Day 1)*
 
 ---
 
@@ -118,7 +118,7 @@ This project is part of the **CertifyMe Full Stack Intern Assessment**. The repo
 
 ---
 
-### ✅ Task 2 — Opportunity Management *(Day 2)*
+###  Task 2 — Opportunity Management *(Day 2)*
 
 > All opportunities must be stored in the database, linked to the logged-in admin, and must never use hardcoded data.
 
