@@ -390,4 +390,6 @@ def me():
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    # use_reloader=False prevents Flask from watching site-packages
+    # (which causes infinite restarts when large libraries like transformers are installed)
+    app.run(debug=True, port=5000, use_reloader=False)
