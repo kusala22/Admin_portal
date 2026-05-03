@@ -50,6 +50,17 @@ VALID_CATEGORIES = {
     "Technology", "Business", "Design", "Marketing", "Data Science", "Other"
 }
 
+# Maps the lowercase short values the HTML dropdown sends → canonical display names
+CATEGORY_MAP = {
+    "technology": "Technology",
+    "business": "Business",
+    "design": "Design",
+    "marketing": "Marketing",
+    "data": "Data Science",        # HTML sends "data", we store "Data Science"
+    "data science": "Data Science",
+    "other": "Other",
+}
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -261,12 +272,12 @@ def validate_opportunity_data(data: dict) -> dict:
     if not raw_category:
         errors["category"] = "Category is required."
     else:
-        # Case-insensitive match so "technology" and "Technology" both work
-        match = next((c for c in VALID_CATEGORIES if c.lower() == raw_category.lower()), None)
+        # Resolve via map (handles lowercase + "data" → "Data Science")
+        match = CATEGORY_MAP.get(raw_category.lower())
         if not match:
             errors["category"] = f"Category must be one of: {', '.join(sorted(VALID_CATEGORIES))}."
         else:
-            data["category"] = match  # normalize to correct casing
+            data["category"] = match  # normalize to canonical name
     if not (data.get("future_opportunities") or "").strip():
         errors["future_opportunities"] = "Future opportunities field is required."
 
