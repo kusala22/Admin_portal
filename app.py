@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 from functools import wraps
 
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -15,7 +15,7 @@ from models import db, Admin, Opportunity, PasswordResetToken
 # App setup
 # ---------------------------------------------------------------------------
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="sky", static_url_path="")
 
 # Secret key — override via SECRET_KEY env var in production
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-change-in-production")
@@ -89,6 +89,15 @@ def get_current_admin():
 
 with app.app_context():
     db.create_all()
+
+
+# ---------------------------------------------------------------------------
+# Frontend serving
+# ---------------------------------------------------------------------------
+
+@app.route("/")
+def index():
+    return send_from_directory("sky", "admin.html")
 
 
 # ---------------------------------------------------------------------------
