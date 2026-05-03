@@ -257,10 +257,16 @@ def validate_opportunity_data(data: dict) -> dict:
         errors["description"] = "Description is required."
     if not (data.get("skills") or "").strip():
         errors["skills"] = "At least one skill is required."
-    if not (data.get("category") or "").strip():
+    raw_category = (data.get("category") or "").strip()
+    if not raw_category:
         errors["category"] = "Category is required."
-    elif data["category"] not in VALID_CATEGORIES:
-        errors["category"] = f"Category must be one of: {', '.join(sorted(VALID_CATEGORIES))}."
+    else:
+        # Case-insensitive match so "technology" and "Technology" both work
+        match = next((c for c in VALID_CATEGORIES if c.lower() == raw_category.lower()), None)
+        if not match:
+            errors["category"] = f"Category must be one of: {', '.join(sorted(VALID_CATEGORIES))}."
+        else:
+            data["category"] = match  # normalize to correct casing
     if not (data.get("future_opportunities") or "").strip():
         errors["future_opportunities"] = "Future opportunities field is required."
 
